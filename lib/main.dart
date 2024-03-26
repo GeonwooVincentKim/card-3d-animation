@@ -11,7 +11,6 @@ class my3DAnimationApp extends StatelessWidget {
       initialRoute: '/',
       home: Home(),
       routes: {
-        
       },
     );
   }
