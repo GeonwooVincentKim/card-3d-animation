@@ -17,8 +17,8 @@ class My3dAnimationApp extends StatelessWidget {
         primarySwatch: Colors.indigo
       ),
       routes: {
-        "/": (context) => const Drawer3D(), 
-        "/home": (context) => const Home(),
+        '/': (context) => const Drawer3D(), 
+        '/home': (context) => const Home(),
       },
       onGenerateRoute: (settings) {
       },
