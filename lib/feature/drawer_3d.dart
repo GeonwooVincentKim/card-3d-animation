@@ -101,6 +101,7 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
     if (_animationController.value > 0.5) {
       _animationController.forward(from: _animationController.value);
       _drawerVisible = true;
+      // Plan to make it extract this part later
     } else {
       _animationController.reverse(from: _animationController.value);
       _drawerVisible = false;
