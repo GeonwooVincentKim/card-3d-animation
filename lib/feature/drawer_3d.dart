@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Drawer3D extends StatefulWidget {
@@ -15,6 +17,9 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
   late AnimationController _animationController;
   late CurvedAnimation _animator;
   late CurvedAnimation _objAnimator;
+
+  var _maxSlide = 0.75;
+  var _extraHeight = 0.1;
 
   @override
   void initState() {
@@ -52,7 +57,7 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
         onHorizontalDragEnd: _onDragEnd,
         child: Stack(
           children: [
-            // _buildBackground(),
+            _buildBackground(),
             // _build3dObject(),
             // _buildDrawer(),
             // _buildHeader(),
@@ -101,4 +106,87 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
       _drawerVisible = false;
     }
   }
+
+  _buildBackground() => Positioned.fill(
+    top: -_extraHeight,
+    bottom: -_extraHeight,
+    child: AnimatedBuilder(
+      animation: _animator,
+      builder: (context, widget) => Transform.translate(
+        offset: Offset(_maxSlide * _animator.value, 0),
+        child: Transform(
+          transform: Matrix4.identity()
+          ..setEntry(3, 2, 0.001)
+          ..rotateY((pi / 2 + 0.1) * -_animator.value),
+          alignment: Alignment.centerLeft,
+          child: widget,
+        ),
+      ),
+      child: Container(
+        color: const Color(0xffe8dfce),
+        child: Stack(
+          children: [
+            Positioned(
+              top: _extraHeight + 0.1 * _screen.height,
+              left: 80,
+              child: Transform.rotate(
+                angle: 90 * (pi / 180),
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  "FENDER",
+                  style: TextStyle(
+                    fontSize: 100,
+                    color: Color(0xFFc7c0b2),
+                    shadows: [
+                      Shadow(
+                        color: Colors.black26,
+                        blurRadius: 5,
+                        offset: Offset(2.0, 2.0)
+                      )
+                    ],
+                    fontWeight: FontWeight.w900
+                  )
+                )
+              )
+            ),
+            // Shadow
+            Positioned(
+              top: _extraHeight + 0.13 * _screen.height,
+              bottom: _extraHeight + 0.24 * _screen.height,
+              left: _maxSlide - 0.41 * _screen.width,
+              right: _screen.width * 1.06 - _maxSlide,
+              child: Column(
+                children: [
+                  Flexible(
+                    child: FractionallySizedBox(
+                      widthFactor: 0.2,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 50,
+                              color: Colors.black38,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(50)
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            AnimatedBuilder(
+              animation: _animator,
+              builder: (_, __) => Container(
+                color: Colors.black.withAlpha(
+                  (150 * _animator.value).floor()
+                )
+              ),
+            )
+          ],
+        )
+      ),
+    ),
+  );
 }
