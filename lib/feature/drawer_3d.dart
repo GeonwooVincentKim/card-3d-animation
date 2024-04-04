@@ -59,7 +59,7 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
           children: [
             _buildBackground(),
             // _build3dObject(),
-            // _buildDrawer(),
+            _buildDrawer(),
             // _buildHeader(),
             // _buildOverlay(),
           ],
@@ -189,5 +189,118 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
         )
       ),
     ),
+  );
+
+  _buildDrawer() => Positioned.fill(
+    top: -_extraHeight,
+    bottom: -_extraHeight,
+    left: 0,
+    right: _screen.width - _maxSlide,
+    child: AnimatedBuilder(
+      animation: _animator,
+      builder: (context, widget) {
+        return Transform.translate(
+          offset: Offset(_maxSlide * (_animator.value - 1), 0),
+          child: Transform(
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001)
+              ..rotateY(pi * (1 - _animator.value) / 2),
+            alignment: Alignment.centerRight,
+            child: widget
+          )
+        );
+      },
+      child: Container(
+        color: const Color(0xffe8dfce),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              bottom: 0,
+              right: 0,
+              child: Container(
+                width: 5,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.transparent, Colors.black12]
+                  )
+                ),
+              )
+            ),
+            Positioned.fill(
+              top: _extraHeight,
+              bottom: _extraHeight,
+              child: SafeArea(
+                child: Container(
+                  width: _maxSlide,
+                  child: Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 25,
+                              height: 25,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black26,
+                                  width: 4,
+                                ),
+                                shape: BoxShape.circle
+                              ),
+                            ),
+                            Transform.translate(
+                              offset: const Offset(-15, 0),
+                              child: const Text(
+                                "STRING",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  backgroundColor: Color(0xffe8dfce),
+                                  fontWeight: FontWeight.w900,
+                                  fontStyle: FontStyle.italic
+                                )
+                              )
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // _buildMenuItem("Guitars", active: true),
+                            // _buildMenuItem("Basses"),
+                            // _buildMenuItem("Amps"),
+                            // _buildMenuItem("Pedals"),
+                            // _buildMenuItem("Others"),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // _buildFooterMenuItem("About"),
+                            // _buildFooterMenuItem("Support"),
+                            // _buildFooterMenuItem("Terms"),
+                            // _buildFooterMenuItem("Faqs"),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ),
+              ) 
+            ),
+            AnimatedBuilder(
+              animation: _animator,
+              builder: (_, __) => Container(
+                width: _maxSlide,
+                color: Colors.black.withAlpha(
+                  (150 * (1 - _animator.value)).floor()
+                )
+              ),
+            )
+          ],
+        )
+      )
+    )
   );
 }
