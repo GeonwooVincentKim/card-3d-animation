@@ -231,7 +231,7 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
               top: _extraHeight,
               bottom: _extraHeight,
               child: SafeArea(
-                child: Container(
+                child: SizedBox(
                   width: _maxSlide,
                   child: Padding(
                     padding: const EdgeInsets.all(40.0),
