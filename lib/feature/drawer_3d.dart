@@ -267,20 +267,20 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // _buildMenuItem("Guitars", active: true),
-                            // _buildMenuItem("Basses"),
-                            // _buildMenuItem("Amps"),
-                            // _buildMenuItem("Pedals"),
-                            // _buildMenuItem("Others"),
+                            _buildMenuItem("Guitars", active: true),
+                            _buildMenuItem("Basses"),
+                            _buildMenuItem("Amps"),
+                            _buildMenuItem("Pedals"),
+                            _buildMenuItem("Others"),
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // _buildFooterMenuItem("About"),
-                            // _buildFooterMenuItem("Support"),
-                            // _buildFooterMenuItem("Terms"),
-                            // _buildFooterMenuItem("Faqs"),
+                            _buildFooterMenuItem("About"),
+                            _buildFooterMenuItem("Support"),
+                            _buildFooterMenuItem("Terms"),
+                            _buildFooterMenuItem("Faqs"),
                           ],
                         )
                       ],
@@ -303,4 +303,37 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
       )
     )
   );
+  
+  _buildMenuItem(String s, {bool active = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: InkWell(
+        onTap: () {},
+        child: Text(
+          s.toUpperCase(),
+          style: TextStyle(
+            fontSize: 25,
+            color: active ? const Color(0xffbb0000) : null,
+            fontWeight: FontWeight.bold
+          )
+        ),
+      )
+    );
+  }
+
+  _buildFooterMenuItem(String s) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: InkWell(
+        onTap: () {},
+        child: Text(
+          s.toUpperCase(),
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w900
+          )
+        )
+      )
+    );
+  }
 }
