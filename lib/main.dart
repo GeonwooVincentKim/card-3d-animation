@@ -16,12 +16,13 @@ class My3dAnimationApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo
       ),
-      routes: {
-        '/': (context) => const Drawer3D(), 
-        '/home': (context) => const Home(),
-      },
-      onGenerateRoute: (settings) {
-      },
+      home: const Drawer3D(),
+      // routes: {
+      //   '/': (context) => const Drawer3D(), 
+      //   '/home': (context) => const Home(),
+      // },
+      // onGenerateRoute: (settings) {
+      // },
     );
   }
 }
