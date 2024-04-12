@@ -45,6 +45,8 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
   @override
   void didChangeDependencies() {
     _screen = MediaQuery.of(context).size;
+    _maxSlide *= _screen.width;
+    _extraHeight *= _screen.height;
     super.didChangeDependencies();
   }
 
@@ -58,7 +60,7 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
         child: Stack(
           children: [
             _buildBackground(),
-            // _build3dObject(),
+            _build3dObject(),
             _buildDrawer(),
             // _buildHeader(),
             // _buildOverlay(),
@@ -336,4 +338,27 @@ class _Drawer3DState extends State<Drawer3D> with SingleTickerProviderStateMixin
       )
     );
   }
+  
+  _build3dObject() => Positioned(
+    top: 0.1 *_screen.height,
+    bottom: 0.22 *_screen.height,
+    left: _maxSlide - _screen.width * 0.5,
+    right: _screen.width * 0.85 - _maxSlide,
+    child: AnimatedBuilder(
+      animation: _objAnimator,
+      builder: (_, __) => ImageSequenceAnimator(
+        "assets/",
+        "",
+        1,
+        4,
+        "png",
+        120,
+        fps: 60,
+        isLooping: false,
+        isBommerang: true,
+        isAutoPlay: false,
+        frame: (_objAnimator.value * 120).ceil(),
+      )
+    )
+  );
 }
