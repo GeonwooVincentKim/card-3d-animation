@@ -35,6 +35,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  image_sequence_animator:
+    git:
+      url: 'https://github.com/papmodern/flutter-image-sequence-animator.git'
+      path: 'image_sequence_animator'
 
 dev_dependencies:
   flutter_test:
